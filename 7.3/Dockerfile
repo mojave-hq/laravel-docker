@@ -29,7 +29,8 @@ RUN apk add --no-cache \
     postgresql-libs \
     rsync \
     zlib-dev \
-    libzip-dev
+    libzip-dev \
+    exiftool
 
 # Install PECL and PEAR extensions
 RUN pecl install \
@@ -39,8 +40,11 @@ RUN pecl install \
 # Install and enable php extensions
 RUN docker-php-ext-enable \
     imagick \
-    xdebug
-RUN docker-php-ext-configure zip --with-libzip
+    xdebug \
+    exif
+RUN docker-php-ext-configure \
+    zip --with-libzip \
+    exif
 RUN docker-php-ext-install \
     curl \
     iconv \
@@ -54,7 +58,8 @@ RUN docker-php-ext-install \
     xml \
     gd \
     zip \
-    bcmath
+    bcmath \
+    exif
 
 # Install composer
 ENV COMPOSER_HOME /composer
